@@ -1,0 +1,30 @@
+DOCKER_BUILD := docker build \
+                --no-cache=true -t s3-access-log .
+DOCKER_RUN := docker run -d --name s3-access-log \
+              --env ES_ENDPOINT="http://YOUR-ES-ENDPOINT:9200" \
+              --env ES_PREFIX="YOUR_INDEX_PREFIX" \
+              --env SQS_QUEUE_NAME="YOUR_QUEUE_NAME" \
+              --env AWS_ACCESS_KEY_ID="AKxxxxxxxxxxxxxxxxxxxxxxxx" \
+              --env AWS_SECRET_ACCESS_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
+              --env AWS_REGION="YOUR_REGION" \
+              -v /etc/localtime:/etc/localtime:ro s3-access-log
+DOCKER_RM := docker rm -f s3-access-log
+DOCKER_APP_LOG := docker exec s3-access-log tail -f /app/app.log
+DOCKER_LOG := docker logs s3-access-log
+
+###
+
+build:
+	@$(DOCKER_BUILD)
+
+run:
+	@$(DOCKER_RUN)
+
+app-log:
+	@$(DOCKER_APP_LOG)
+
+log:
+	@$(DOCKER_LOG)
+
+destroy:
+	@$(DOCKER_RM)

@@ -1,0 +1,5 @@
+boto3
+elasticsearch
+pytz
+urllib3
+supervisor
