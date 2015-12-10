@@ -79,7 +79,7 @@ def recive_event_message():
 def main():
     while 1:
         logging.info("Start polling...")
-        time.sleep(10) 
+        time.sleep(60) 
         event = recive_event_message()
         if event == None:
             logging.info("Event does not exists...")
