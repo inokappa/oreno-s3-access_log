@@ -9,22 +9,22 @@ DOCKER_RUN := docker run -d --name s3-access-log \
               --env AWS_REGION="YOUR_REGION" \
               -v /etc/localtime:/etc/localtime:ro s3-access-log
 DOCKER_RM := docker rm -f s3-access-log
-DOCKER_APP_LOG := docker exec s3-access-log tail -f /app/app.log
+DOCKER_APP_LOG := docker exec s3-access-log /usr/local/bin/supervisorctl -c /app/supervisord.conf tail app
 DOCKER_LOG := docker logs s3-access-log
 
 ###
 
-build:
+docker-build:
 	@$(DOCKER_BUILD)
 
-run:
+docker-run:
 	@$(DOCKER_RUN)
 
-app-log:
+docker-app-log:
 	@$(DOCKER_APP_LOG)
 
-log:
+docker-log:
 	@$(DOCKER_LOG)
 
-destroy:
+docker-destroy:
 	@$(DOCKER_RM)

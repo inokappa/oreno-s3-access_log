@@ -7,14 +7,16 @@ require 'uri'
 def http_request(uri, body)
   uri  = URI.parse(uri)
   http = Net::HTTP.new(uri.host, uri.port)
-  # http.use_ssl = true
+  if uri.scheme == "https"
+    http.use_ssl = true
+  end
   req  = Net::HTTP::Post.new(uri.request_uri)
   req["Content-Type"] = "application/json"
   req.body = body
   http.request(req)
 end
 
-def create_template(es_host, template_name)
+def create_mapping_template(es_host, template_name)
   uri  = "#{es_host}" + "/_template/" + "#{template_name}" 
   mapping = <<EOS
 {
@@ -80,7 +82,9 @@ def create_template(es_host, template_name)
 }
 EOS
   res = http_request(uri, mapping)
-  logging.info("code: #{res.code}, msg: #{res.message}, body: #{res.body}")
+  puts "code: #{res.code}"
+  puts "msg: #{res.message}"
+  puts "body: #{res.body}"
 end
 
-create_template('http://localhost:9200', 's3_access_log')
+create_mapping_template(ENV["ES_ENDPOINT"], ENV["ES_TEMPLATE_NAME"])

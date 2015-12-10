@@ -1,5 +1,6 @@
 lambda
 es/test.rb
+es/access_policy.json
 sqs/test.py
 sqs/app.py.bk
 sqs/requirements.txt.bk

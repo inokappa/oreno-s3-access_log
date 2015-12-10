@@ -1,0 +1,22 @@
+{
+  "Statement": [
+    {
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "xxx.xxx.xxx.xxx",
+            "xxx.xxx.xxx.xxx"
+          ]
+        }
+      },
+      "Resource": "arn:aws:es:ap-northeast-1:xxxxxxxxxxxxxxxxxx:domain/your-domain/*",
+      "Action": "es:*",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ],
+  "Version": "2012-10-17"
+}
