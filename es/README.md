@@ -1,13 +1,13 @@
 - describe-elasticsearch-domain
 
 ```sh
-$ make es-desc
+$ make ES_DOMAIN="foo-domain" es-desc
 ```
 
 - update-elasticsearch-domain-config
 
 ```sh
-$ make es-update-domain
+$ make ES_DOMAIN="foo-domain" POLICY_JSON="access_policy.json" es-update-domain
 ```
 
 - docker build
